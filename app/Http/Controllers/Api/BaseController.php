@@ -17,5 +17,5 @@ use App\Http\Controllers\Controller;
  */
 class BaseController extends Controller
 {
-    //
+    const ITEM_PER_PAGE = 10;
 }

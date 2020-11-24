@@ -4,7 +4,7 @@
       <h3 class="title">
         {{ $t('login.title') }}
       </h3>
-      <lang-select class="set-language" />
+      <!--<lang-select class="set-language" />-->
       <el-form-item prop="email">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -41,13 +41,11 @@
 </template>
 
 <script>
-import LangSelect from '@/components/LangSelect';
 import { validEmail } from '@/utils/validate';
 import { csrf } from '@/api/auth';
 
 export default {
   name: 'Login',
-  //components: { LangSelect },
   data() {
     const validateEmail = (rule, value, callback) => {
       if (!validEmail(value)) {

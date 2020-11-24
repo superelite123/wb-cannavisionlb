@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Resources\UserResource;
+use App\Laravue\Models\ContactPerson;
+use App\Laravue\Models\Term;
+use App\Laravue\Models\State;
+use App\Laravue\Models\LicenseType;
+use App\Laravue\Models\DayOfWeek;
+use App\Laravue\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Laravue\Faker;
@@ -28,10 +34,22 @@ Route::namespace('Api')->group(function() {
         Route::get('/user', function (Request $request) {
             return new UserResource($request->user());
         });
-
+        Route::get('/customers/relations', function () {
+            return [
+                'contactPersons' => ContactPerson::all(),
+                'licenseTypes' => LicenseType::all(),
+                'terms' => Term::all(),
+                'dayOfWeek' => DayOfWeek::all(),
+                'states' => State::all(),
+                'status' => Status::all(),
+            ];
+        });
+        Route::post('/customers/file','CustomerController@storeFile');
         // Api resource routes
         Route::apiResource('roles', 'RoleController')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
         Route::apiResource('users', 'UserController')->middleware('permission:' . Acl::PERMISSION_USER_MANAGE);
+        Route::apiResource('customers', 'CustomerController');
+        Route::apiResource('contact_persons', 'ContactPersonController');
         Route::apiResource('permissions', 'PermissionController')->middleware('permission:' . Acl::PERMISSION_PERMISSION_MANAGE);
 
         // Custom routes
