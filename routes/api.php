@@ -2,6 +2,7 @@
 
 use App\Http\Resources\UserResource;
 use App\Laravue\Models\ContactPerson;
+use App\Laravue\Models\ContactType;
 use App\Laravue\Models\Term;
 use App\Laravue\Models\State;
 use App\Laravue\Models\LicenseType;
@@ -42,6 +43,12 @@ Route::namespace('Api')->group(function() {
                 'dayOfWeek' => DayOfWeek::all(),
                 'states' => State::all(),
                 'status' => Status::all(),
+            ];
+        });
+        Route::get('/contact_persons/relations', function(){
+            return [
+                'contactTypes' => ContactType::all(),
+                'states' => State::all(),
             ];
         });
         Route::post('/customers/file','CustomerController@storeFile');

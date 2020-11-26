@@ -48,7 +48,16 @@ class ContactPersonController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        unset($data['id']);
+        unset($data['rState']);
+        unset($data['rContactType']);
+        unset($data['rUpperManage']);
+        $contactPerson = new ContactPerson($data);
+        $contactPerson->save();
+        $contactPersonRemote = new ContactPersonRemote($data);
+        $contactPersonRemote->save();
+        return response()->json($contactPerson);
     }
 
     /**
@@ -82,7 +91,31 @@ class ContactPersonController extends BaseController
      */
     public function update(Request $request, ContactPerson $contactPerson)
     {
-        //
+        if($contactPerson === null)
+        {
+            return response()->json(['error' => 'Customer   $data = $request->all(); not found'], 404);
+        }
+        $data = $request->all();
+        unset($data['index']);
+        unset($data['key']);
+        unset($data['rState']);
+        unset($data['rContactType']);
+        unset($data['rUpperManage']);
+        
+        $data['telephone'] = '';
+        foreach($data as $key => $item)
+        {
+            if($data[$key] === null)
+            {
+                $data[$key] = '';
+            }
+        }
+        if($data['state'] == null)
+        {
+            $data['state'] = null;
+        }
+        $contactPerson->update($data);
+        return response()->json($request->all());
     }
 
     /**

@@ -14,6 +14,30 @@ class ContactPersonResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $original = parent::toArray($request);
+        //rState
+        $original['rState'] = ['id' => -1, 'name' => ''];
+        if($this->rState != null)
+        {
+            $original['rState']['id'] = $this->rState->state_id;
+            $original['rState']['name'] = $this->rState->abbr;
+        }
+        //rContactType
+        $original['rContactType'] = ['id' => -1, 'name' => ''];
+        if($this->rContactType != null)
+        {
+            $original['rContactType']['id'] = $this->rContactType->ct_id;
+            $original['rContactType']['name'] = $this->rContactType->type;
+        }
+        if($this->uppermanage == 0)
+        {
+            $original['rUpperManage'] = 'No';
+        }
+        if($this->uppermanage == 1)
+        {
+            $original['rUpperManage'] = 'Yes';
+        }
+        
+        return $original;
     }
 }

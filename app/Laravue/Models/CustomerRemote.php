@@ -4,10 +4,9 @@ namespace App\Laravue\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CustomerRemote extends Model
+class CustomerRemote extends Customer
 {
     protected $connection = 'mysql2';
-    protected $table = 'customers';
     protected $primaryKey = 'client_id';
     public $timestamps = false;
     protected $fillable = [ 'client_id', 'clientname', 'legalname', 'primarycontact', 'companyemail', 'companyphone',
